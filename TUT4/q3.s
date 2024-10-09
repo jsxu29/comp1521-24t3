@@ -11,6 +11,48 @@
 
 max:
 
+max__prologue:
+	begin			# creates stack frame
+	push	$ra		
+	push	$s0		
+
+max__body:
+	# int first_element = array[0];
+	lw	$s0, ($a0)
+
+	beq	$a1, 1, max__base_case
+
+# else statement
+	# store the arguments
+	addi	$a0, $a0, 4
+	addi	$a1, $a1, -1
+	jal	max		# max(&array[1], length - 1)
+
+	# max_so_far - $v0
+	bgt 	$s0, $v0, max__set_max
+
+#else statement
+	b	max__epilogue
+
+#if statement
+max__set_max:
+	move	$v0, $s0
+	b	max__epilogue
+
+# if statement
+max__base_case:
+	# return first_element
+	move	$v0, $s0 
+	b 	max__epilogue
+
+max__epilogue:
+	pop	$s0 		# pop in reverse order
+	pop	$ra
+	end			# remove stack fram
+
+	jr	$ra
+
+
 
 
 
