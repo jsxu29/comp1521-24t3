@@ -97,7 +97,7 @@ int pthread_create(pthread_t *thread,
 
 ## Potential Errors - Data Race
 
-Consider C operations in MIPS.
+Consider C operations in MIPS (q8_data_race.c looks at this).
 
 ### Atomic types
 - atomic - smallest possible unit
